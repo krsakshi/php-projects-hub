@@ -20,3 +20,34 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
+
+
+PHP Code (Dashboard - Protected Page)
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php"); // Redirect to login page if not logged in
+    exit();
+}
+
+// Logout functionality
+if (isset($_GET['logout'])) {
+    session_destroy(); // Destroy session on logout
+    header("Location: index.php"); // Redirect to login page
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, <?php echo $_SESSION['user']; ?>!</h1>
+    <p>This is a protected page that requires login.</p>
+    <a href="?logout=true">Logout</a>
+</body>
+</html>
